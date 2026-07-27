@@ -1,1 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="description" content="Hands-free automotive inspection pilot for Moti's Auto Repair" />
+  <style>
+:root{--bg:#f3f4f6;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#d1d5db;--primary:#0f766e;--primary2:#115e59;--danger:#b91c1c;--warn:#b45309;--pass:#15803d;--shadow:0 10px 30px rgba(17,24,39,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.app-shell{max-width:920px;margin:0 auto;min-height:100vh}.topbar{position:sticky;top:0;z-index:20;background:#111827;color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 3px 14px rgba(0,0,0,.18)}.brand{font-size:1.25rem;font-weight:900;letter-spacing:.08em}.subtitle{font-size:.78rem;color:#d1d5db}.icon-btn{background:#374151;color:#fff;border:0;border-radius:12px;padding:10px 13px;font-size:1.2rem}.view{display:none;padding:16px}.view.active{display:block}.hero-card{background:linear-gradient(135deg,#111827,#374151);color:#fff;border-radius:20px;padding:22px;margin-bottom:16px;box-shadow:var(--shadow)}.hero-card h1{margin:0 0 8px;font-size:1.65rem}.hero-card p{margin:0;color:#e5e7eb;line-height:1.45}.card,.prompt-card,.report-paper{background:var(--card);border:1px solid #e5e7eb;border-radius:18px;padding:18px;box-shadow:var(--shadow);margin-bottom:16px}.card.compact{padding:16px}.card h2{margin:0 0 12px;font-size:1.1rem}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full-row{grid-column:1/-1}label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:.9rem}input,textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;color:var(--ink)}input:focus,textarea:focus{outline:3px solid rgba(15,118,110,.18);border-color:var(--primary)}button{font:inherit;font-weight:800;border:0;border-radius:12px;padding:12px 15px;cursor:pointer}.primary{background:var(--primary);color:#fff}.primary:hover{background:var(--primary2)}.secondary{background:#e5e7eb;color:#111827}.danger{background:#fee2e2;color:var(--danger)}.big{min-height:52px}.button-row{display:flex;gap:10px;flex-wrap:wrap}.command-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.command-grid span{background:#f3f4f6;border-radius:10px;padding:9px;font-size:.82rem}.hidden{display:none!important}.progress-wrap{background:#fff;padding:12px 14px;border-radius:14px;margin-bottom:12px;border:1px solid #e5e7eb}.progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);font-weight:800;margin-bottom:7px}.progress-track{height:9px;background:#e5e7eb;border-radius:99px;overflow:hidden}.progress-bar{height:100%;width:0;background:var(--primary);transition:width .25s}.section-chips{display:flex;gap:8px;overflow:auto;padding:2px 0 12px;scrollbar-width:none}.section-chips button{flex:0 0 auto;background:#fff;border:1px solid var(--line);padding:9px 11px;font-size:.78rem}.section-chips button.active{background:#111827;color:#fff;border-color:#111827}.prompt-card{min-height:285px;display:flex;flex-direction:column}.prompt-meta{display:flex;justify-content:space-between;gap:8px;align-items:center}.pill,.status{display:inline-flex;border-radius:999px;padding:6px 10px;font-size:.75rem;font-weight:900}.pill{background:#e0f2fe;color:#075985}.status.pending{background:#f3f4f6;color:#4b5563}.status.pass{background:#dcfce7;color:#166534}.status.issue{background:#fee2e2;color:#991b1b}.status.deferred{background:#fef3c7;color:#92400e}.status.na{background:#e5e7eb;color:#374151}.prompt-card h1{font-size:1.7rem;line-height:1.2;margin:22px 0 10px}.hint{color:var(--muted);line-height:1.45;min-height:22px}.heard-box{margin-top:auto;background:#f9fafb;border:1px dashed #9ca3af;border-radius:12px;padding:12px;color:#374151}.heard-label{font-weight:900}.photo-strip{display:flex;gap:8px;overflow-x:auto;margin-top:12px}.photo-strip img{width:92px;height:72px;object-fit:cover;border-radius:10px;border:1px solid #d1d5db}.listen-panel{display:flex;align-items:center;gap:14px;background:#111827;color:#fff;border-radius:18px;padding:16px;margin-bottom:14px}.mic-button{width:92px;height:92px;border-radius:50%;background:#ef4444;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(239,68,68,.15)}.mic-button.listening{animation:pulse 1.3s infinite;background:#dc2626}.mic-icon{font-size:1.65rem}.mic-button span:last-child{font-size:.75rem}.listen-state{color:#d1d5db;line-height:1.35;font-size:.92rem}@keyframes pulse{50%{box-shadow:0 0 0 16px rgba(239,68,68,.03)}}.action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding-bottom:22px}.action-btn{background:#fff;border:1px solid #d1d5db;min-height:50px}.action-btn.wide{grid-column:1/-1;border:0}.report-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.report-paper{padding:28px;border-radius:8px}.report-header{display:flex;justify-content:space-between;gap:20px;border-bottom:3px solid #111827;padding-bottom:14px;margin-bottom:18px}.report-header h1{margin:0;font-size:1.6rem}.report-header .shop{font-size:.85rem;color:#4b5563}.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}.meta-item{background:#f3f4f6;padding:10px;border-radius:8px}.meta-item b{display:block;font-size:.72rem;color:#6b7280;text-transform:uppercase}.report-section{margin:22px 0}.report-section h2{font-size:1.1rem;border-bottom:1px solid #d1d5db;padding-bottom:7px}.finding{break-inside:avoid;border:1px solid #e5e7eb;border-radius:10px;padding:12px;margin:10px 0}.finding-top{display:flex;justify-content:space-between;gap:12px}.finding-title{font-weight:900}.finding-answer{margin:8px 0;white-space:pre-wrap}.finding-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.finding-photos img{width:100%;height:150px;object-fit:cover;border-radius:8px}.report-warning{background:#fef3c7;border:1px solid #f59e0b;padding:12px;border-radius:10px;margin-bottom:16px}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:#111827;color:#fff;padding:11px 16px;border-radius:12px;z-index:100;opacity:0;transition:.25s;max-width:88%;text-align:center}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}dialog{border:0;border-radius:18px;padding:0;max-width:520px;width:calc(100% - 28px);box-shadow:0 25px 80px rgba(0,0,0,.3)}dialog::backdrop{background:rgba(17,24,39,.65)}.dialog-card{padding:20px;display:grid;gap:14px}.dialog-card h2{margin:0}.dialog-card menu{display:flex;justify-content:flex-end;gap:8px;margin:0;padding:0}.checkbox{flex-direction:row;align-items:center}.checkbox input{width:auto}.photo-required{background:#fff7ed;border:1px solid #fdba74;color:#9a3412;padding:10px;border-radius:10px;margin-top:10px;font-weight:800}
+@media(max-width:620px){.form-grid,.meta-grid{grid-template-columns:1fr}.command-grid{grid-template-columns:1fr 1fr}.prompt-card h1{font-size:1.45rem}.report-paper{padding:16px}.finding-photos{grid-template-columns:1fr 1fr}.topbar{padding-top:max(14px,env(safe-area-inset-top))}}
+@media print{body{background:#fff}.no-print,.topbar{display:none!important}.view{display:none!important;padding:0}.view#reportView.active{display:block!important}.report-paper{box-shadow:none;border:0;margin:0;padding:0}.finding-photos img{height:180px}.report-section{break-inside:auto}.finding{break-inside:avoid}}
+.action-btn.wide.primary{background:var(--primary);color:#fff;border:0}
 
+.permission-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.permission-badge{display:inline-flex;border-radius:999px;padding:8px 12px;font-size:.82rem;font-weight:900}.permission-badge.pending{background:#f3f4f6;color:#4b5563}.permission-badge.success{background:#dcfce7;color:#166534}.permission-badge.fail{background:#fee2e2;color:#991b1b}.permission-badge.warn{background:#fef3c7;color:#92400e}.environment-warning{margin-top:12px;padding:12px;border-radius:12px;background:#fff7ed;border:1px solid #fdba74;color:#9a3412;line-height:1.45}.mic-setup-card p{color:var(--muted);line-height:1.45}
+
+.manual-answer-card{background:#fff;border:1px solid #d1d5db;border-radius:18px;padding:14px;margin:0 0 14px}.manual-answer-card h2{margin:0 0 6px;font-size:1rem}.manual-answer-card p{margin:0 0 10px;color:#6b7280;line-height:1.35}.manual-answer-card textarea{width:100%;min-height:86px;font-size:1.05rem;padding:12px;border:2px solid #9ca3af;border-radius:12px;resize:vertical}.manual-answer-card button{width:100%;margin-top:10px;min-height:52px}
+</style>
+  <title>Moti's Voice Inspection</title>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar no-print">
+      <div>
+        <div class="brand">MOTI'S</div>
+        <div class="subtitle">Voice Inspection Pilot <span id="version"></span></div>
+      </div>
+      <button id="settingsBtn" class="icon-btn" aria-label="Settings">⚙</button>
+    </header>
+
+    <main>
+      <section id="setupView" class="view active">
+        <div class="hero-card">
+          <h1>Start an inspection</h1>
+          <p>Connect the Bluetooth headset first. Then enter the vehicle information and tap <strong>Start hands-free</strong>.</p>
+        </div>
+
+        <div class="card compact mic-setup-card">
+          <h2>1. Automatic microphone test — optional</h2>
+          <p id="micSetupText">You can try automatic listening. If Chrome blocks it, start the inspection anyway and use the built-in keyboard-dictation answer box.</p>
+          <div class="permission-row">
+            <button type="button" id="enableMicBtn" class="primary big">Enable / test microphone</button>
+            <span id="micBadge" class="permission-badge pending">Not tested</span>
+          </div>
+          <div id="environmentWarning" class="environment-warning hidden"></div>
+        </div>
+
+        <form id="setupForm" class="card form-grid">
+          <h2 class="full-row">2. Vehicle information</h2>
+          <label>Technician name<input id="techName" autocomplete="name" required placeholder="Technician" /></label>
+          <label>Repair order<input id="repairOrder" required placeholder="RO number" inputmode="numeric" /></label>
+          <label>Vehicle<input id="vehicle" required placeholder="Year, make, model" /></label>
+          <label>Mileage<input id="mileage" placeholder="Mileage" inputmode="numeric" /></label>
+          <label>Customer<input id="customer" placeholder="Optional" /></label>
+          <label>Shop report email<input id="shopEmail" type="email" placeholder="Optional" /></label>
+          <div class="full-row button-row">
+            <button type="submit" class="primary big">Start inspection</button>
+            <button type="button" id="resumeBtn" class="secondary big hidden">Resume saved inspection</button>
+          </div>
+        </form>
+
+        <div class="card compact">
+          <h2>Voice commands</h2>
+          <div class="command-grid">
+            <span>“Take picture”</span><span>“Skip for now”</span><span>“Repeat question”</span>
+            <span>“Go to brakes”</span><span>“What did I miss?”</span><span>“Finish inspection”</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="inspectionView" class="view">
+        <div class="progress-wrap no-print">
+          <div class="progress-label"><span id="progressText">0 completed</span><span id="pendingText">0 remaining</span></div>
+          <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        </div>
+
+        <div id="sectionChips" class="section-chips no-print"></div>
+
+        <article class="prompt-card">
+          <div class="prompt-meta">
+            <span id="currentSection" class="pill">Section</span>
+            <span id="currentStatus" class="status pending">Pending</span>
+          </div>
+          <h1 id="currentPrompt">Question</h1>
+          <p id="promptHint" class="hint"></p>
+          <div id="heardBox" class="heard-box"><span class="heard-label">Heard:</span> <span id="heardText">—</span></div>
+          <div id="photoStrip" class="photo-strip"></div>
+        </article>
+
+        <div class="listen-panel no-print">
+          <button id="listenBtn" class="mic-button" aria-label="Start listening"><span class="mic-icon">🎙</span><span id="listenLabel">Listen</span></button>
+          <div id="listenState" class="listen-state">Tap once to begin. The app will keep prompting.</div>
+        </div>
+
+
+        <div class="manual-answer-card no-print">
+          <h2>Dictate or type the answer</h2>
+          <p>Tap the box, tap the microphone on your phone keyboard, and speak through the connected Bluetooth headset. Then tap <strong>Submit answer</strong>.</p>
+          <textarea id="manualAnswer" placeholder="Speak or type the technician's answer here"></textarea>
+          <button id="submitManualAnswerBtn" class="primary big" type="button">Submit answer</button>
+        </div>
+
+        <div class="action-grid no-print">
+          <button id="takePhotoBtn" class="action-btn">📷 Take picture</button>
+          <button id="skipBtn" class="action-btn">↷ Skip for now</button>
+          <button id="backBtn" class="action-btn">← Previous</button>
+          <button id="nextBtn" class="action-btn">Next →</button>
+          <button id="addFindingBtn" class="action-btn">＋ Add finding</button>
+          <button id="missedBtn" class="action-btn">☑ What’s missing?</button>
+          <button id="reportBtn" class="action-btn wide primary">Review report</button>
+        </div>
+
+        <input id="cameraInput" type="file" accept="image/*" capture="environment" class="hidden" />
+      </section>
+
+      <section id="reportView" class="view">
+        <div class="report-actions no-print">
+          <button id="backToInspectionBtn" class="secondary">← Inspection</button>
+          <button id="printBtn" class="secondary">Print / Save PDF</button>
+          <button id="shareBtn" class="primary">Share / Email report</button>
+          <button id="downloadBtn" class="secondary">Download report</button>
+          <button id="newInspectionBtn" class="danger">New inspection</button>
+        </div>
+        <div id="reportContent" class="report-paper"></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status"></div>
+
+    <dialog id="settingsDialog">
+      <form method="dialog" class="dialog-card">
+        <h2>Settings</h2>
+        <label>Shop name<input id="settingsShopName" value="Moti's Auto Repair" /></label>
+        <label>Default report email<input id="settingsEmail" type="email" /></label>
+        <label>Voice speed<input id="voiceRate" type="range" min="0.7" max="1.3" step="0.1" value="1" /></label>
+        <label class="checkbox"><input id="autoListen" type="checkbox" checked /> Automatically listen after each prompt</label>
+        <menu><button value="cancel" class="secondary">Cancel</button><button id="saveSettingsBtn" value="default" class="primary">Save</button></menu>
+      </form>
+    </dialog>
+
+    <dialog id="findingDialog">
+      <form method="dialog" class="dialog-card">
+        <h2>Add a finding</h2>
+        <label>Finding<textarea id="manualFinding" rows="4" placeholder="Example: right rear shock is leaking"></textarea></label>
+        <menu><button value="cancel" class="secondary">Cancel</button><button id="saveFindingBtn" value="default" class="primary">Add finding</button></menu>
+      </form>
+    </dialog>
+  </div>
+  <script>
+(() => {
+'use strict';
+const VERSION = 'v0.3.0';
+const DB_NAME = 'motis-inspection-db';
+const STORE_NAME = 'drafts';
+const DRAFT_KEY = 'current';
+
+const $ = (id) => document.getElementById(id);
+const views = ['setupView','inspectionView','reportView'];
+let db;
+let recognition;
+let listening = false;
+let handsFree = false;
+let isSpeaking = false;
+let photoTargetId = null;
+let state = null;
+let settings = loadSettings();
+let micPermissionGranted = false;
+
+const baseQuestions = [
+  q('walkaround','Walk-around','Visible tire or brake needs','Walk around the car. Can you see if it needs tires or brakes? Explain what you see.','Mention how many, which positions, and why.'),
+  q('start','Start & dashboard','Starting operation','Does the vehicle start properly?','Say normal, slow crank, extended crank, clicking, no crank, starts and stalls, or describe the problem.'),
+  q('dash','Start & dashboard','Dashboard warning lights','Are any warning lights illuminated on the dashboard? If yes, name every light.','Say “take picture” after naming the lights.'),
+  q('td_tire','Test drive','Tire or bearing noise','On the test drive, do you hear tire noise, humming, growling, or possible wheel-bearing noise?','If yes, say the speed, location, and whether it changes while turning.'),
+  q('td_exhaust','Test drive','Exhaust noise','Do you hear any exhaust noise on the test drive?','If yes, say front, center, or rear and describe the sound.'),
+  q('td_bumps','Test drive','Noise over bumps','Do you hear any clunking, rattling, squeaking, or other noise over bumps?','Give front or rear, left or right, and the type of noise.'),
+  q('td_trans','Test drive','Transmission operation','How does the transmission shift?','Say normal, harsh, delayed, slipping, shuddering, flaring, or describe it.'),
+  q('td_pulley','Test drive','Pulley or belt noise','Do you hear any belt, tensioner, idler, alternator, compressor, or pulley noise?','Say when it happens and where it seems to come from.'),
+  q('hvac','Interior','Air conditioning and heat','Are the air conditioning and heat working properly?','Check cooling, heat, blower speeds, and rear climate if equipped.'),
+  q('wipers','Interior','Wipers and washers','Are the front and rear wipers and washers working properly?','Report streaking, torn blades, weak spray, or anything not working.'),
+  q('fluid_oil','Fluids','Engine oil','Check the engine oil. What is the level and condition?','Say normal, low, overfilled, dirty, contaminated, or unable to inspect.'),
+  q('fluid_coolant','Fluids','Engine coolant','Check the engine coolant. What is the level and condition?','Do not open a hot cooling system.'),
+  q('fluid_brake','Fluids','Brake fluid','Check the brake fluid. What is the level and condition?','Say normal, low, dirty, contaminated, leaking, or unable to inspect.'),
+  q('fluid_ps','Fluids','Power steering fluid','Check the power steering fluid if the vehicle has a serviceable reservoir.','Say normal, low, dirty, leaking, electric steering, or not applicable.'),
+  q('fluid_trans','Fluids','Transmission fluid','Check the transmission fluid if it is serviceable.','Say normal, low, burnt, dirty, sealed, or unable to inspect.'),
+  q('fluid_washer','Fluids','Washer fluid','Check the windshield-washer fluid.','Say full, low, empty, leaking, or unable to inspect.'),
+  q('bulbs','Exterior lights','All exterior light bulbs','Check all exterior light bulbs. Are any not working? If yes, identify each exact light and position.','Include headlights, high beams, signals, brake lights, center brake light, tail, reverse, plate, fog, and markers.'),
+  q('pad_lf','Lift – brakes','Left-front brake pads','How many millimeters are on the left-front brake pads? Also describe the rotor.','Include inner versus outer difference if visible.'),
+  q('pad_rf','Lift – brakes','Right-front brake pads','How many millimeters are on the right-front brake pads? Also describe the rotor.','Include inner versus outer difference if visible.'),
+  q('pad_lr','Lift – brakes','Left-rear brake pads','How many millimeters are on the left-rear brake pads? Also describe the rotor.','Include inner versus outer difference if visible.'),
+  q('pad_rr','Lift – brakes','Right-rear brake pads','How many millimeters are on the right-rear brake pads? Also describe the rotor.','Include inner versus outer difference if visible.'),
+  q('tire_lf','Lift – tires','Left-front tire','What is the left-front tread depth in thirty-seconds, and what is the tire condition?','Mention edge wear, dry rot, bubbles, nails, cords, or other damage.'),
+  q('tire_rf','Lift – tires','Right-front tire','What is the right-front tread depth in thirty-seconds, and what is the tire condition?','Mention edge wear, dry rot, bubbles, nails, cords, or other damage.'),
+  q('tire_lr','Lift – tires','Left-rear tire','What is the left-rear tread depth in thirty-seconds, and what is the tire condition?','Mention edge wear, dry rot, bubbles, nails, cords, or other damage.'),
+  q('tire_rr','Lift – tires','Right-rear tire','What is the right-rear tread depth in thirty-seconds, and what is the tire condition?','Mention edge wear, dry rot, bubbles, nails, cords, or other damage.'),
+  q('leaks','Lift – undercar','Fluid leaks','Do you see any fluid leaks or seepage?','If yes, identify the fluid, exact source or area, and severity.'),
+  q('suspension','Lift – undercar','Suspension and steering','How are the suspension and steering components?','Check ball joints, tie rods, control arms, bushings, links, struts, shocks, springs, bearings, axles, rack, and subframe.'),
+  q('underbody','Lift – undercar','Underbody and exhaust','Inspect the underbody and exhaust. Any leaks, rust, loose shields, broken hangers, damage, or structural concerns?','Identify the exact component and location.'),
+  q('lift_pulleys','Under hood','Pulleys and belt system','With the vehicle safely positioned, how are the belt, tensioner, idlers, and pulleys?','Report play, roughness, noise, cracks, or misalignment.'),
+  q('final_notes','Final review','Additional findings','Is there anything else the customer or service advisor should know?','Say no additional findings, or dictate the finding.')
+];
+
+function q(id, section, title, prompt, hint, required=true){
+  return {id,section,title,prompt,hint,required,status:'pending',answer:'',photos:[],createdAt:Date.now(),parentId:null,isFollowUp:false};
+}
+
+function freshState(meta={}){
+  return {version:VERSION, meta:{shopName:settings.shopName||"Moti's Auto Repair",...meta,startedAt:new Date().toISOString()}, items:baseQuestions.map(x=>structuredClone(x)), currentId:'walkaround', history:[], completedAt:null};
+}
+
+function loadSettings(){
+  try{return {...{shopName:"Moti's Auto Repair",email:'',voiceRate:1,autoListen:true},...JSON.parse(localStorage.getItem('motisSettings')||'{}')}}catch{return {shopName:"Moti's Auto Repair",email:'',voiceRate:1,autoListen:true}}
+}
+function saveSettings(){localStorage.setItem('motisSettings',JSON.stringify(settings));}
+
+async function openDb(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(DB_NAME,1);
+    req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE_NAME))req.result.createObjectStore(STORE_NAME)};
+    req.onsuccess=()=>{db=req.result;resolve(db)};req.onerror=()=>reject(req.error);
+  });
+}
+async function saveDraft(){
+  if(!db||!state)return;
+  await new Promise((resolve,reject)=>{const tx=db.transaction(STORE_NAME,'readwrite');tx.objectStore(STORE_NAME).put(state,DRAFT_KEY);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});
+}
+async function loadDraft(){
+  if(!db)return null;
+  return new Promise((resolve,reject)=>{const tx=db.transaction(STORE_NAME,'readonly');const req=tx.objectStore(STORE_NAME).get(DRAFT_KEY);req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error)});
+}
+async function clearDraft(){
+  if(!db)return;
+  await new Promise((resolve)=>{const tx=db.transaction(STORE_NAME,'readwrite');tx.objectStore(STORE_NAME).delete(DRAFT_KEY);tx.oncomplete=resolve;tx.onerror=resolve});
+}
+
+function showView(id){views.forEach(v=>$(v).classList.toggle('active',v===id));window.scrollTo({top:0,behavior:'smooth'});}
+function currentItem(){return state?.items.find(i=>i.id===state.currentId)||null;}
+function itemIndex(id){return state.items.findIndex(i=>i.id===id);}
+function sectionNames(){return [...new Set(state.items.map(i=>i.section))];}
+function isComplete(i){return ['pass','issue','na'].includes(i.status);}
+function pendingItems(){return state.items.filter(i=>i.required&&!isComplete(i));}
+function completedCount(){return state.items.filter(isComplete).length;}
+
+function render(){
+  if(!state)return;
+  const item=currentItem();
+  if(!item)return;
+  const done=completedCount(), total=state.items.length, pending=pendingItems().length;
+  $('progressText').textContent=`${done} completed`;
+  $('pendingText').textContent=`${pending} required remaining`;
+  $('progressBar').style.width=`${Math.round(done/Math.max(total,1)*100)}%`;
+  $('currentSection').textContent=item.section;
+  $('currentPrompt').textContent=item.prompt;
+  $('promptHint').textContent=item.hint||'';
+  $('heardText').textContent=item.answer||'—';
+  $('currentStatus').className=`status ${item.status}`;
+  $('currentStatus').textContent=statusLabel(item.status);
+  renderSections();renderPhotos(item);
+  document.title=`${item.title} – Moti's Inspection`;
+}
+function statusLabel(s){return ({pending:'Pending',pass:'Passed',issue:'Finding',deferred:'Skipped',na:'N/A'})[s]||s;}
+function renderSections(){
+  const wrap=$('sectionChips');wrap.innerHTML='';const cur=currentItem();
+  sectionNames().forEach(section=>{const b=document.createElement('button');b.textContent=section; b.classList.toggle('active',cur.section===section); b.onclick=()=>goToSection(section);wrap.appendChild(b)});
+}
+function renderPhotos(item){
+  const strip=$('photoStrip');strip.innerHTML='';
+  item.photos.forEach((p,idx)=>{const img=document.createElement('img');img.src=p.dataUrl;img.alt=`${item.title} photo ${idx+1}`;img.title='Tap to remove';img.onclick=()=>{if(confirm('Remove this picture?')){item.photos.splice(idx,1);saveDraft();render()}};strip.appendChild(img)});
+  if(item.status==='issue'&&item.photos.length===0){const d=document.createElement('div');d.className='photo-required';d.textContent='Photo recommended. Say “take picture.”';strip.appendChild(d)}
+}
+
+function goToItem(id, speakIt=true){
+  const old=currentItem();if(old&&old.id!==id)state.history.push(old.id);
+  state.currentId=id;render();saveDraft();if(speakIt)speakCurrent();
+}
+function goNext(){
+  const idx=itemIndex(state.currentId);
+  let next=state.items.slice(idx+1).find(i=>!isComplete(i));
+  if(!next)next=state.items.find(i=>!isComplete(i));
+  if(next)goToItem(next.id);else showReport();
+}
+function goPrevious(){
+  const id=state.history.pop();
+  if(id&&state.items.some(i=>i.id===id)){state.currentId=id;render();saveDraft();speakCurrent();return}
+  const idx=itemIndex(state.currentId);if(idx>0)goToItem(state.items[idx-1].id);
+}
+function goToSection(section){
+  const target=state.items.find(i=>i.section===section&&!isComplete(i))||state.items.find(i=>i.section===section);
+  if(target)goToItem(target.id);
+}
+
+function speak(text, thenListen=false){
+  if(!('speechSynthesis' in window)){if(thenListen)startRecognition();return}
+  window.speechSynthesis.cancel();
+  isSpeaking=true;
+  const u=new SpeechSynthesisUtterance(text);u.rate=Number(settings.voiceRate)||1;u.pitch=1;u.lang='en-US';
+  u.onend=()=>{isSpeaking=false;if(thenListen&&handsFree&&settings.autoListen)setTimeout(startRecognition,350)};
+  u.onerror=()=>{isSpeaking=false;if(thenListen&&handsFree&&settings.autoListen)setTimeout(startRecognition,350)};
+  window.speechSynthesis.speak(u);
+}
+function speakCurrent(){
+  const i=currentItem();if(!i)return;
+  $('listenState').textContent='Speaking the question…';
+  speak(i.prompt,true);
+}
+function repeatQuestion(){speakCurrent();}
+
+function setMicStatus(level, text){
+  const badge=$('micBadge');
+  if(badge){badge.className=`permission-badge ${level}`;badge.textContent=level==='success'?'Microphone ready':level==='warn'?'Limited support':level==='fail'?'Microphone blocked':'Not tested'}
+  if($('micSetupText'))$('micSetupText').textContent=text;
+}
+function speechRecognitionAvailable(){return Boolean(window.SpeechRecognition||window.webkitSpeechRecognition)}
+async function ensureMicPermission(options={}){
+  const silent=Boolean(options.silent);
+  if(!window.isSecureContext){
+    const msg=location.protocol==='file:'
+      ? 'Automatic hands-free listening is blocked in a downloaded file. Use the Dictate or type answer box below each question; tap the keyboard microphone and speak your answer.'
+      : 'Microphone access requires a secure HTTPS address. This page is not running in a secure browser context.';
+    setMicStatus('fail',msg);if($('environmentWarning')){$('environmentWarning').textContent=msg;$('environmentWarning').classList.remove('hidden')}if(!silent)toast('Use the dictation answer box on the inspection screen');return false;
+  }
+  if(!navigator.mediaDevices?.getUserMedia){
+    const msg='This browser does not provide microphone access to this web app. Use a supported browser or the native Android version.';
+    setMicStatus('fail',msg);if(!silent)toast(msg);return false;
+  }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    const tracks=stream.getAudioTracks();const label=tracks[0]?.label||'active microphone';tracks.forEach(t=>t.stop());
+    micPermissionGranted=true;
+    if(!speechRecognitionAvailable()){
+      const msg=`The browser allowed ${label}, but live speech recognition is not available in this browser. The inspection can still be used manually.`;
+      setMicStatus('warn',msg);if(!silent)toast('Microphone allowed, but speech recognition is unavailable');return false;
+    }
+    setMicStatus('success',`Permission granted. The app will listen through ${label}. Keep the Bluetooth headset connected before starting.`);
+    if(!silent)toast('Microphone is ready');return true;
+  }catch(err){
+    micPermissionGranted=false;
+    const denied=err?.name==='NotAllowedError'||err?.name==='SecurityError';
+    const msg=denied
+      ? 'Microphone permission was denied. Open the browser site settings for this website, set Microphone to Allow, reload, and tap this button again.'
+      : `The microphone could not be opened${err?.message?`: ${err.message}`:'.'}`;
+    setMicStatus('fail',msg);if(!silent)toast(msg);return false;
+  }
+}
+function diagnoseEnvironment(){
+  const warning=$('environmentWarning');if(!warning)return;
+  const ios=/iPad|iPhone|iPod/.test(navigator.userAgent);const iosChrome=/CriOS/.test(navigator.userAgent);
+  if(!window.isSecureContext){warning.textContent='Downloaded-file mode: automatic listening is unavailable, but the inspection works. Use the Dictate or type answer box and the microphone button on your phone keyboard.';warning.classList.remove('hidden')}
+  else if(iosChrome){warning.textContent='iPhone Chrome may allow the microphone but not provide the live speech-recognition feature this pilot uses. Try Safari on the same HTTPS address; a native iPhone build will ultimately be more reliable.';warning.classList.remove('hidden')}
+  else if(ios){warning.textContent='On iPhone, browser speech recognition can be less reliable than a native app. Keep the page open and the screen awake during inspection.';warning.classList.remove('hidden')}
+}
+
+function setupRecognition(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return false;
+  recognition=new SR();recognition.lang='en-US';recognition.interimResults=true;recognition.continuous=false;recognition.maxAlternatives=3;
+  recognition.onstart=()=>{listening=true;$('listenBtn').classList.add('listening');$('listenLabel').textContent='Listening';$('listenState').textContent='Listening through the phone’s active microphone…'};
+  recognition.onresult=(e)=>{
+    let final='',interim='';
+    for(let n=e.resultIndex;n<e.results.length;n++){const t=e.results[n][0].transcript;if(e.results[n].isFinal)final+=t;else interim+=t}
+    $('heardText').textContent=final||interim||'—';
+    if(final.trim())handleSpeech(final.trim());
+  };
+  recognition.onerror=(e)=>{
+    listening=false;updateListenUi();
+    const friendly={'not-allowed':'Microphone permission was denied.','network':'Speech recognition needs an internet connection on this phone.','no-speech':'I did not hear an answer.','audio-capture':'No microphone is available.'}[e.error]||`Voice error: ${e.error}`;
+    $('listenState').textContent=friendly;
+    if(handsFree&&['no-speech','network'].indexOf(e.error)<0)setTimeout(()=>speak('I did not catch that. Please answer again.',true),600);
+  };
+  recognition.onend=()=>{listening=false;updateListenUi();};
+  return true;
+}
+async function startRecognition(){
+  if(isSpeaking||listening)return;
+  if(!micPermissionGranted){const ready=await ensureMicPermission();if(!ready)return}
+  if(!recognition&&!setupRecognition()){toast('Live voice recognition is not supported in this browser.');$('listenState').textContent='Voice recognition is unavailable in this browser.';return}
+  try{recognition.start()}catch(e){$('listenState').textContent='Could not start listening. Tap Enable / test microphone on the first screen.'}
+}
+function stopRecognition(){try{recognition?.stop()}catch{};listening=false;updateListenUi();}
+function updateListenUi(){$('listenBtn').classList.toggle('listening',listening);$('listenLabel').textContent=listening?'Listening':'Listen';}
+
+function normalize(t){return t.toLowerCase().replace(/[.,!?]/g,' ').replace(/\s+/g,' ').trim();}
+function handleSpeech(raw){
+  const t=normalize(raw);
+  $('heardText').textContent=raw;
+  if(photoTargetId&&/^(ready|take it|take picture|take the picture|camera)$/.test(t)){launchCamera(photoTargetId);return}
+  if(/take (a )?(picture|photo)|add (a )?(picture|photo)/.test(t)){preparePhoto();return}
+  if(/repeat|say that again|repeat question/.test(t)){repeatQuestion();return}
+  if(/skip|come back|later/.test(t)){skipCurrent();return}
+  if(/what.*(miss|left|remaining)|what did i miss/.test(t)){announceMissing();return}
+  if(/finish inspection|complete inspection|review report|make report/.test(t)){attemptFinish();return}
+  if(/go back|previous/.test(t)){goPrevious();return}
+  if(/next question|move on/.test(t)){goNext();return}
+  if(/^go to |^open |^switch to /.test(t)){if(routeSectionCommand(t))return}
+  if(/^record finding |^add finding |^new finding /.test(t)){const text=raw.replace(/^(record|add|new) finding\s*/i,'');addSpokenFinding(text);return}
+  const off=detectOffSequence(raw);
+  if(off){addSpokenFinding(raw,off,true);return}
+  recordAnswer(raw);
+}
+function routeSectionCommand(t){
+  const map=[['walk','Walk-around'],['dashboard','Start & dashboard'],['dash','Start & dashboard'],['test drive','Test drive'],['interior','Interior'],['fluid','Fluids'],['light','Exterior lights'],['bulb','Exterior lights'],['brake','Lift – brakes'],['tire','Lift – tires'],['suspension','Lift – undercar'],['leak','Lift – undercar'],['underbody','Lift – undercar'],['pulley','Under hood'],['final','Final review']];
+  const found=map.find(([k])=>t.includes(k));if(found){goToSection(found[1]);return true}return false;
+}
+function detectOffSequence(raw){
+  const t=normalize(raw), cur=currentItem();
+  const categories=[
+    {section:'Lift – brakes',rx:/\b(brake|pad|rotor|caliper)\b/},
+    {section:'Lift – tires',rx:/\b(tire|tread|sidewall|dry rot|cords?)\b/},
+    {section:'Lift – undercar',rx:/\b(shock|strut|ball joint|tie rod|control arm|suspension|leak|seepage|axle|cv boot)\b/},
+    {section:'Exterior lights',rx:/\b(headlight|tail light|brake light|bulb|turn signal|marker light)\b/},
+    {section:'Start & dashboard',rx:/\b(check engine|warning light|abs light|airbag light|dash light)\b/}
+  ];
+  const strong=/^(also |i see |there is |found |the |right |left |front |rear )/.test(t);
+  if(!strong)return null;
+  const f=categories.find(c=>c.rx.test(t)&&c.section!==cur.section);return f?.section||null;
+}
+
+function recordAnswer(raw){
+  const item=currentItem();if(!item)return;
+  item.answer=raw;item.status=inferStatus(item,raw);item.answeredAt=new Date().toISOString();
+  const followUps=makeFollowUps(item,raw);
+  if(followUps.length){insertFollowUps(item,followUps);saveDraft();render();toast('Follow-up added');speakCurrent();return}
+  if(shouldRecommendPhoto(item,raw)&&item.photos.length===0){saveDraft();render();speak(`Recorded. A picture is recommended for ${item.title}. Say take picture now, or continue when ready.`,false);setTimeout(()=>{if(handsFree)startRecognition()},1800);return}
+  saveDraft();render();goNext();
+}
+function inferStatus(item,raw){
+  const t=normalize(raw);
+  if(/not applicable|n\/a|does not have|electric steering|sealed system/.test(t))return 'na';
+  if(item.id.startsWith('pad_')||item.id.startsWith('tire_'))return /bad|low|worn|replace|damage|uneven|groove|rust|crack|cord|bubble|nail/.test(t)?'issue':'pass';
+  const issue=/\b(yes|bad|low|empty|dirty|burnt|contaminated|leak|seep|noise|not working|doesn.t work|out|broken|worn|damaged|slow|click|stall|harsh|slip|shudder|delay|clunk|rattle|squeak|groove|rust|crack|play|loose|misalign|overheat|warning)\b/.test(t);
+  const pass=/\b(no|none|normal|good|properly|works|working|okay|ok|fine|full|clean|passed)\b/.test(t);
+  return issue&&!pass?'issue':pass&&!issue?'pass':issue?'issue':'pass';
+}
+function makeFollowUps(item,raw){
+  if(item.isFollowUp)return [];
+  const t=normalize(raw), out=[];
+  const add=(suffix,title,prompt,hint)=>out.push(q(`${item.id}_${suffix}_${Date.now()}_${out.length}`,item.section,title,prompt,hint,true));
+  const issue=inferStatus(item,raw)==='issue';
+  if(item.id==='walkaround'&&issue){
+    if(/tire/.test(t)&&!/(one|two|three|four|1|2|3|4|left|right|front|rear|all)/.test(t))add('tire_positions','Tire positions','How many tires, and which exact positions need attention?','Example: both front tires.');
+    if(/tire/.test(t)&&!/(tread|wear|worn|dry rot|crack|bubble|nail|cord|damage|edge)/.test(t))add('tire_reason','Tire reason','Why does each tire need replacement or attention?','Give tread, wear pattern, damage, dry rot, puncture, or another reason.');
+    if(/brake/.test(t)&&!/(left|right|front|rear|axle|wheel)/.test(t))add('brake_positions','Brake positions','Which wheels or axle appear to need brakes?','Example: both front wheels.');
+    if(/brake/.test(t)&&!/(pad|rotor|groove|rust|metal|caliper)/.test(t))add('brake_detail','Brake detail','Can you see low pads, damaged rotors, or both?','Say what is visible; measurements will still be taken on the lift.');
+  }
+  if(item.id==='start'&&issue&&!/(slow|extended|click|no crank|crank|stall|intermittent)/.test(t))add('symptom','Starting symptom','What exactly happens when you try to start it?','Slow crank, extended crank, clicking, no crank, cranks but will not start, or starts and stalls.');
+  if(item.id==='dash'&&issue&&!/(check engine|abs|airbag|brake|battery|oil|tire|tpms|traction|temperature|maintenance)/.test(t))add('which','Warning light names','Which exact dashboard warning lights are illuminated?','Name every light.');
+  if(item.id==='td_tire'&&issue&&!/(left|right|front|rear|mph|speed|turn)/.test(t))add('detail','Noise details','At what speed, from which area, and does it change when turning?','Also say whether you are certain or further diagnosis is needed.');
+  if(item.id==='td_exhaust'&&issue&&!/(front|center|middle|rear|accelerat|cold|rattle|tick|hiss)/.test(t))add('detail','Exhaust noise details','Where is the exhaust noise and when is it heard?','Front, center, rear; cold, accelerating, or constant.');
+  if(item.id==='td_bumps'&&issue&&!/(front|rear|left|right|clunk|rattle|squeak|knock)/.test(t))add('detail','Bump noise details','Where is the noise and what kind of sound is it?','Front or rear, left or right, clunk, rattle, squeak, or knock.');
+  if(item.id==='td_trans'&&issue&&!/(harsh|slip|delay|shudder|flare|gear|engage)/.test(t))add('detail','Transmission symptom','Is it harsh, slipping, delayed, shuddering, flaring, or failing to engage?','Describe when it happens.');
+  if(item.id==='td_pulley'&&issue&&!/(cold|warm|idle|accelerat|air conditioning|a c|front|left|right)/.test(t))add('detail','Pulley noise details','When is the noise heard, and where does it seem to come from?','Cold or warm, idle or acceleration, A/C on or off.');
+  if(item.id==='hvac'&&issue&&!/(air|a c|heat|blower|rear|vent|cool|hot)/.test(t))add('detail','HVAC details','Is the problem with air conditioning, heat, airflow, rear climate, or more than one?','Describe what works and what does not.');
+  if(item.id==='wipers'&&issue&&!/(front|rear|washer|spray|streak|chatter|torn)/.test(t))add('detail','Wiper details','Which wiper or washer function is not working properly?','Give front or rear, left or right, and the exact symptom.');
+  if(item.id.startsWith('fluid_')&&issue&&!/(low|empty|over|dirty|burnt|contamin|leak|seep|color|smell)/.test(t))add('detail','Fluid details','Describe the level and condition. Do you see evidence of a leak?','Include how low, color, smell, contamination, or leak evidence.');
+  if(item.id==='bulbs'&&issue&&!/(left|right|front|rear|center|head|high beam|signal|brake|tail|reverse|plate|fog|marker|mirror)/.test(t))add('which','Failed light locations','Which exact lights are not working?','Give function and position: for example right brake light or left low beam.');
+  if(item.id.startsWith('pad_')&&!/\b\d+(\.\d+)?\s*(mm|millimeter|millimeters)?\b/.test(t))add('measurement','Pad measurement','Give the pad thickness in millimeters.','Say the number and whether inner and outer pads differ.');
+  if(item.id.startsWith('tire_')&&!/\b\d+(\.\d+)?\s*(\/32|thirty second|thirty-second|mm|millimeter)?/.test(t))add('measurement','Tread measurement','Give the tread depth for this tire.','Use thirty-seconds of an inch, or say millimeters.');
+  if(item.id==='leaks'&&issue){
+    if(!/(oil|coolant|transmission|differential|transfer|steering|brake|shock|strut|a c|water)/.test(t))add('fluid','Leak fluid','What fluid appears to be leaking?','Oil, coolant, transmission fluid, differential fluid, steering fluid, brake fluid, shock oil, water, or unknown.');
+    if(!/(engine|valve cover|oil pan|timing|transmission|differential|transfer|rack|hose|radiator|pump|left|right|front|rear|source)/.test(t))add('location','Leak location','Where is the leak coming from or concentrated?','Give the component or exact area.');
+    if(!/(seep|wet|drip|heavy|active|uncertain|clean)/.test(t))add('severity','Leak severity','How severe is it?','Light seepage, wet, active drip, heavy leak, source uncertain, or clean and recheck.');
+  }
+  if(item.id==='suspension'&&issue&&!/(ball joint|tie rod|control arm|bushing|sway|link|strut|shock|spring|bearing|axle|cv|rack|subframe)/.test(t))add('component','Suspension component','Which exact suspension or steering component has a problem, where is it, and what is wrong?','Example: right-front lower ball joint has play.');
+  if(item.id==='underbody'&&issue&&!/(exhaust|shield|hanger|catalytic|rust|subframe|floor|panel|front|rear|left|right)/.test(t))add('component','Underbody component','Which exact underbody or exhaust component has a problem, where is it, and what is wrong?','Identify the component and location.');
+  out.forEach(x=>{x.isFollowUp=true;x.parentId=item.id});
+  return out;
+}
+function insertFollowUps(parent,followUps){
+  const idx=itemIndex(parent.id);state.items.splice(idx+1,0,...followUps);state.currentId=followUps[0].id;
+}
+function shouldRecommendPhoto(item,raw){
+  if(inferStatus(item,raw)!=='issue')return false;
+  return ['dash','walkaround','bulbs','leaks','suspension','underbody'].includes(item.id)||item.id.startsWith('pad_')||item.id.startsWith('tire_')||/(damage|broken|leak|rust|crack|bubble|cord|groove|warning light)/.test(normalize(raw));
+}
+
+function skipCurrent(){const i=currentItem();i.status='deferred';i.answer=i.answer||'Skipped for later';saveDraft();render();goNext();}
+function announceMissing(){
+  const p=pendingItems();if(!p.length){speak('Nothing is missing. The inspection is ready for review.',false);return}
+  const names=p.slice(0,5).map(x=>x.title).join(', ');speak(`${p.length} required items remain. The next items include ${names}.`,false);toast(`${p.length} required items remain`);
+}
+function attemptFinish(){
+  const p=pendingItems();if(p.length){toast(`${p.length} required items are still missing`);speak(`${p.length} required items are still missing. Returning to ${p[0].title}.`,false);setTimeout(()=>goToItem(p[0].id),900)}else showReport();
+}
+
+function addSpokenFinding(text,section=null,returnAfter=false){
+  if(!text.trim()){toast('No finding was heard');return}
+  const previous=currentItem();const detected=section||detectSection(text)||'Additional findings';
+  const id=`finding_${Date.now()}`;
+  const item=q(id,detected,'Additional finding',`Provide any remaining details for this finding: ${text}`,'Add exact location, severity, measurements, and say “take picture” when useful.',false);
+  item.answer=text;item.status='issue';item.answeredAt=new Date().toISOString();item.isFollowUp=true;
+  state.items.push(item);saveDraft();
+  if(returnAfter){toast(`Recorded under ${detected}`);speak(`I recorded that finding under ${detected}. Returning to ${previous.title}.`,false);render();setTimeout(()=>{if(handsFree)startRecognition()},1700)}else{goToItem(id,false);render();speak(`Finding recorded under ${detected}. Add details or say take picture.`,true)}
+}
+function detectSection(text){const t=normalize(text);if(/brake|pad|rotor|caliper/.test(t))return 'Lift – brakes';if(/tire|tread|sidewall/.test(t))return 'Lift – tires';if(/shock|strut|ball joint|tie rod|suspension|leak|axle|cv/.test(t))return 'Lift – undercar';if(/bulb|headlight|tail light|signal/.test(t))return 'Exterior lights';if(/dash|warning|check engine|abs/.test(t))return 'Start & dashboard';if(/air conditioning|heat|wiper/.test(t))return 'Interior';return 'Additional findings'}
+
+function preparePhoto(){
+  const item=currentItem();photoTargetId=item.id;
+  const msg=`Point the phone camera at ${item.title}. Hold it steady, then say ready or tap the take picture button.`;
+  $('listenState').textContent=msg;speak(msg,true);toast('Point camera, then say “ready”');
+}
+function launchCamera(itemId){
+  photoTargetId=itemId;stopRecognition();
+  try{$('cameraInput').click()}catch{toast('Tap the Take Picture button to open the camera')}
+}
+async function handlePhotoFile(file){
+  if(!file||!photoTargetId)return;
+  const item=state.items.find(i=>i.id===photoTargetId);if(!item)return;
+  const dataUrl=await resizeImage(file,1400,.78);
+  item.photos.push({dataUrl,name:file.name||`photo-${Date.now()}.jpg`,capturedAt:new Date().toISOString()});
+  photoTargetId=null;$('cameraInput').value='';await saveDraft();render();toast('Picture saved');speak(`Picture saved for ${item.title}.`,true);
+}
+function resizeImage(file,maxSize,quality){
+  return new Promise((resolve,reject)=>{const r=new FileReader();r.onerror=reject;r.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{let w=img.width,h=img.height;if(Math.max(w,h)>maxSize){const s=maxSize/Math.max(w,h);w=Math.round(w*s);h=Math.round(h*s)}const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.drawImage(img,0,0,w,h);resolve(c.toDataURL('image/jpeg',quality))};img.src=r.result};r.readAsDataURL(file)});
+}
+
+function reportHtml(fullDocument=false){
+  const meta=state.meta;const sections=[...new Set(state.items.map(i=>i.section))];const pending=pendingItems();
+  const body=`<div class="report-header"><div><h1>Automotive Inspection Report</h1><div class="shop">${esc(meta.shopName||"Moti's Auto Repair")}</div></div><div><b>RO ${esc(meta.repairOrder||'')}</b><br><small>${new Date(meta.startedAt).toLocaleString()}</small></div></div>
+  ${pending.length?`<div class="report-warning"><b>Incomplete inspection:</b> ${pending.length} required item(s) remain: ${pending.map(i=>esc(i.title)).join(', ')}.</div>`:''}
+  <div class="meta-grid">${metaBox('Vehicle',meta.vehicle)}${metaBox('Mileage',meta.mileage)}${metaBox('Customer',meta.customer)}${metaBox('Technician',meta.techName)}${metaBox('Repair order',meta.repairOrder)}${metaBox('Completed',state.completedAt?new Date(state.completedAt).toLocaleString():'Draft')}</div>
+  ${sections.map(section=>{const items=state.items.filter(i=>i.section===section&&(i.answer||i.photos.length||i.status!=='pending'));if(!items.length)return'';return`<section class="report-section"><h2>${esc(section)}</h2>${items.map(reportFinding).join('')}</section>`}).join('')}
+  <footer><small>Generated by Moti's Voice Inspection Pilot ${VERSION}. Technician and service advisor must verify all findings and measurements before customer authorization.</small></footer>`;
+  if(!fullDocument)return body;
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>RO ${esc(meta.repairOrder||'')} Inspection</title><style>${reportCss()}</style></head><body><main class="report-paper">${body}</main></body></html>`;
+}
+function reportFinding(i){return `<article class="finding"><div class="finding-top"><div class="finding-title">${esc(i.title)}</div><span class="status ${i.status}">${esc(statusLabel(i.status))}</span></div><div class="finding-answer">${esc(i.answer||'No answer recorded')}</div>${i.photos.length?`<div class="finding-photos">${i.photos.map(p=>`<img src="${p.dataUrl}" alt="${esc(i.title)}">`).join('')}</div>`:''}</article>`}
+function metaBox(label,value){return `<div class="meta-item"><b>${esc(label)}</b>${esc(value||'—')}</div>`}
+function esc(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function reportCss(){return `body{font-family:Arial,sans-serif;color:#111;margin:0;background:#eee}.report-paper{max-width:850px;margin:20px auto;background:#fff;padding:30px}.report-header{display:flex;justify-content:space-between;border-bottom:3px solid #111;padding-bottom:14px}.report-header h1{margin:0}.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}.meta-item{background:#f3f4f6;padding:10px;border-radius:8px}.meta-item b{display:block;font-size:11px;color:#666}.report-section h2{border-bottom:1px solid #bbb}.finding{border:1px solid #ddd;border-radius:8px;padding:12px;margin:10px 0;break-inside:avoid}.finding-top{display:flex;justify-content:space-between}.finding-title{font-weight:bold}.status{font-size:11px;padding:4px 8px;border-radius:12px;background:#eee}.status.issue{background:#fee2e2;color:#991b1b}.status.pass{background:#dcfce7;color:#166534}.status.deferred{background:#fef3c7;color:#92400e}.finding-answer{white-space:pre-wrap;margin-top:8px}.finding-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.finding-photos img{width:100%;height:180px;object-fit:cover}.report-warning{background:#fff3cd;padding:12px;border:1px solid #d9a400}@media print{body{background:#fff}.report-paper{margin:0;max-width:none;padding:0}}`}
+function showReport(){stopRecognition();handsFree=false;state.completedAt=pendingItems().length?null:new Date().toISOString();saveDraft();$('reportContent').innerHTML=reportHtml(false);showView('reportView');}
+function downloadReport(){const blob=new Blob([reportHtml(true)],{type:'text/html'});downloadBlob(blob,reportFilename());}
+function reportFilename(){const ro=(state.meta.repairOrder||'draft').replace(/[^a-z0-9_-]/gi,'_');return `RO_${ro}_inspection_report.html`}
+function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)}
+async function shareReport(){
+  const html=reportHtml(true);const file=new File([html],reportFilename(),{type:'text/html'});const summary=summaryText();
+  try{
+    if(navigator.share&&navigator.canShare?.({files:[file]})){await navigator.share({title:`Inspection RO ${state.meta.repairOrder||''}`,text:summary,files:[file]});return}
+    if(navigator.share){await navigator.share({title:`Inspection RO ${state.meta.repairOrder||''}`,text:summary});downloadReport();return}
+  }catch(e){if(e.name==='AbortError')return}
+  downloadReport();
+  const email=state.meta.shopEmail||settings.email||'';location.href=`mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(`Inspection report RO ${state.meta.repairOrder||''}`)}&body=${encodeURIComponent(summary+'\n\nThe report file was downloaded separately; attach it to this email.')}`;
+}
+function summaryText(){
+  const findings=state.items.filter(i=>i.status==='issue').map(i=>`${i.title}: ${i.answer}`).slice(0,20);
+  return `Inspection report\nRO: ${state.meta.repairOrder||''}\nVehicle: ${state.meta.vehicle||''}\nTechnician: ${state.meta.techName||''}\n\nFindings:\n${findings.length?findings.join('\n'):'No issues were marked.'}`;
+}
+
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2600)}
+
+async function startNewInspection(form){
+  const voiceReady=await ensureMicPermission({silent:true});
+  state=freshState({techName:$('techName').value.trim(),repairOrder:$('repairOrder').value.trim(),vehicle:$('vehicle').value.trim(),mileage:$('mileage').value.trim(),customer:$('customer').value.trim(),shopEmail:$('shopEmail').value.trim()||settings.email});
+  await saveDraft();showView('inspectionView');render();handsFree=voiceReady;
+  if(voiceReady)speak('Inspection started. '+currentItem().prompt,true);
+  else{$('listenState').textContent='Automatic listening is unavailable in downloaded-file mode. Use the Dictate or type answer box below.';toast('Inspection ready — use keyboard dictation')}
+}
+async function resumeInspection(){const draft=await loadDraft();if(!draft)return;state=draft;showView('inspectionView');render();handsFree=true;speak('Resuming inspection. '+currentItem().prompt,true);}
+async function resetInspection(){if(!confirm('Start a new inspection and erase the current saved draft?'))return;stopRecognition();window.speechSynthesis?.cancel();await clearDraft();state=null;showView('setupView');$('setupForm').reset();$('shopEmail').value=settings.email||'';$('resumeBtn').classList.add('hidden');}
+
+function bind(){
+  $('version').textContent=VERSION;
+  $('setupForm').addEventListener('submit',e=>{e.preventDefault();startNewInspection(e.target)});
+  $('enableMicBtn').onclick=()=>ensureMicPermission();
+  $('resumeBtn').onclick=resumeInspection;
+  $('listenBtn').onclick=()=>{handsFree=true;if(listening)stopRecognition();else startRecognition()};
+  $('submitManualAnswerBtn').onclick=()=>{const box=$('manualAnswer');const text=box.value.trim();if(!text){toast('Dictate or type an answer first');return}handleSpeech(text);box.value='';};
+  $('manualAnswer').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')$('submitManualAnswerBtn').click()});
+  $('takePhotoBtn').onclick=()=>{preparePhoto();setTimeout(()=>launchCamera(currentItem().id),350)};
+  $('skipBtn').onclick=skipCurrent;$('backBtn').onclick=goPrevious;$('nextBtn').onclick=goNext;$('missedBtn').onclick=announceMissing;$('reportBtn').onclick=showReport;
+  $('cameraInput').addEventListener('change',e=>handlePhotoFile(e.target.files?.[0]));
+  $('backToInspectionBtn').onclick=()=>{showView('inspectionView');render();handsFree=false};
+  $('printBtn').onclick=()=>window.print();$('shareBtn').onclick=shareReport;$('downloadBtn').onclick=downloadReport;$('newInspectionBtn').onclick=resetInspection;
+  $('settingsBtn').onclick=()=>{$('settingsShopName').value=settings.shopName;$('settingsEmail').value=settings.email;$('voiceRate').value=settings.voiceRate;$('autoListen').checked=settings.autoListen;$('settingsDialog').showModal()};
+  $('saveSettingsBtn').onclick=()=>{settings={shopName:$('settingsShopName').value.trim()||"Moti's Auto Repair",email:$('settingsEmail').value.trim(),voiceRate:Number($('voiceRate').value),autoListen:$('autoListen').checked};saveSettings();$('shopEmail').value=$('shopEmail').value||settings.email;toast('Settings saved')};
+  $('addFindingBtn').onclick=()=>{$('manualFinding').value='';$('findingDialog').showModal()};
+  $('saveFindingBtn').onclick=()=>{const text=$('manualFinding').value.trim();if(text)addSpokenFinding(text)};
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRecognition()});
+}
+
+async function init(){
+  bind();diagnoseEnvironment();$('shopEmail').value=settings.email||'';
+  try{await openDb();const draft=await loadDraft();if(draft)$('resumeBtn').classList.remove('hidden')}catch(e){console.warn('Draft storage unavailable',e)}
+  if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+init();
+})();
+
+</script>
+</body>
+</html>
